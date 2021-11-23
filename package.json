@@ -1,6 +1,6 @@
 {
-  "name": "npx-graphcms-migrate",
-  "version": "1.0.0",
+  "name": "graphcms-migrate",
+  "version": "0.1.0",
   "description": "",
   "main": "bin.js",
   "scripts": {
