@@ -6,9 +6,51 @@ Needs migrating to the newer meow/ora with esm support, typescript.
 
 ## Usage
 
+Run `npx graphcms-migrate --help` to get full usage instructions.
+
 1. Add your `GRAPHCMS_ENDPOINT` and `GRAPHCMS_TOKEN` to `.env` (or use flags `--endpoint` and `--token`)
 2. Add migrations to a directory called `graphcms-migrations`, or a name you prefer
 3. Run and pass the directory name `npx graphcms-migrate <directory-of-migrations>`
+
+```bash
+Usage
+
+  Step 1:
+  Add migrations to /graphcms-migrations (or a custom directory)
+
+  Step 2:
+  Add your `GRAPHCMS_ENDPOINT` and `GRAPHCMS_TOKEN` to your root `.env` file
+
+  Step 3:
+  $ npx graphcms-migrate <directory> [options]
+
+Examples
+
+  Perform migrations in default `graphcms-migrations` directory:
+  $ npx graphcms-migrate
+
+  Perform migrations in custom migrations directory:
+  $ npx graphcms-migrate my-migrations
+
+  Provide a custom endpoint:
+  $ npx graphcms-migrate -e GRAPHCMS_ENDPOINT
+
+  Provide a custom token:
+  $ npx graphcms-migrate -t GRAPHCMS_TOKEN
+
+  Run migrations in dry mode:
+  $ npx graphcms-migrate --dry-run
+
+  Drop existing remote migration entries:
+  $ npx graphcms-migrate --drop-migrations
+
+Options
+
+  --endpoint, -e    GraphCMS endpoint with environment
+  --token,    -t    GraphCMS token with content + management permissions
+  --dry-run,  -d    Don't actually run migrations, just print them
+  --drop-migrations Drop existing remote migration content entries
+```
 
 ## Migration template
 
@@ -73,7 +115,7 @@ jobs:
           check-latest: true
 
       - name: Push schema
-        run: npx graphcms-migrate graphcms-migrations
+        run: npx graphcms-migrate
         env:
           GRAPHCMS_ENDPOINT: ${{ secrets.GRAPHCMS_ENDPOINT }}
           GRAPHCMS_TOKEN: ${{ secrets.GRAPHCMS_TOKEN }}

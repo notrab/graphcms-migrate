@@ -4,8 +4,6 @@ const ora = require("ora");
 const { createMigrationEntry } = require("../utils/create-migration-entry");
 
 const runMigration = async ({
-  endpoint,
-  token,
   directory,
   fileName,
   dryRun,
@@ -27,14 +25,18 @@ const runMigration = async ({
 
     if (errors) {
       spinner.fail(`Could not process migration`);
-      console.log(errors);
+      // console.log(errors);
       throw errors;
     } else {
-      spinner.succeed(`Success! ${fileName}`);
+      spinner.succeed(`Migration file ${fileName} ran successfully!`);
 
+      // TODO: Better handling of unsuccessful migrations
       // If something goes wrong here, there will be a conflict of local/remote migrations
 
       spinner.text = `Saving migration: ${fileName} to GraphCMS`;
+
+      // TODO: Move this above, and update entry when completed
+      // TODO: Compare completed migrations only, not just entries
       await createMigrationEntry({ graphcmsClient, fileName });
     }
   } catch (err) {
